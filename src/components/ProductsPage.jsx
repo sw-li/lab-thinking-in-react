@@ -7,30 +7,36 @@ function ProductsPage() {
   const [filterInstock, setFilterInstock] = useState(false);
   const [searchWord, setSearchWord] = useState('');
 
-  const containKeyword = (keyword, showInStock = false) => {
-    const productsCopy = [...jsonData];
-    const filteredProducts = productsCopy.filter((product) =>
-      product.name.toLowerCase().includes(keyword.toLowerCase())
-    );
+
+  const resetKeyword = (keyword)=>{
     setSearchWord(keyword)
-    setProducts(filteredProducts);
-  };
-  
-  const showInStock = (checkboxStatus) => {
-    console.log(checkboxStatus);
-    const newStatus = checkboxStatus;
-    const productsCopy = [...jsonData];
-    const onlyInStockProducts = productsCopy.filter(
-      (product) => product.inStock
-    );
-    newStatus ? setProducts(onlyInStockProducts) : setProducts(productsCopy);
-    setFilterInstock(newStatus);
-  };
+    resetProducts()
+  }
+
+  const showInStock = (checkboxStatus)=>{
+    setFilterInstock(checkboxStatus)
+    resetProducts()
+  }
+
+  const resetProducts = ()=>{
+    const productsCopy = [...jsonData]
+    let filteredProducts = productsCopy.filter(product =>
+      product.name.toLowerCase().includes(searchWord.toLowerCase()) 
+      ) 
+    console.log(filteredProducts)
+    if(!filterInstock){
+      filteredProducts = filteredProducts.filter(product=> product.inStock)
+    }
+    console.log(filterInstock)
+    setProducts(filteredProducts)
+  }
+
+
   return (
     <div>
       <h1>IronStore</h1>
       <SearchBar
-        containKeyword={containKeyword}
+        containKeyword={resetKeyword}
         showInStock={showInStock}
       ></SearchBar>
       <ProductTable filteredProducts={products}></ProductTable>
