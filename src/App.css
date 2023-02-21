@@ -36,3 +36,27 @@
     transform: rotate(360deg);
   }
 }
+
+
+
+.productTable{
+  text-align: center;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+}
+td, th{
+  width: 150px;
+}
+
+table, th, td {
+  border: 1 solid violet;
+}
+
+.inStock{
+  color: green;
+}
+
+.notInStock{
+  color: red;
+}
