@@ -2,41 +2,37 @@ import { useState } from 'react';
 import jsonData from '../data.json';
 import SearchBar from './SearchBar';
 import ProductTable from './ProductTable';
+
 function ProductsPage() {
   const [products, setProducts] = useState(jsonData);
   const [filterInstock, setFilterInstock] = useState(false);
   const [searchWord, setSearchWord] = useState('');
-
-
-  const resetKeyword = (keyword)=>{
+  
+  const containKeyword = (keyword)=>{
     setSearchWord(keyword)
-    resetProducts()
+    // watch out the delay of setState, 
+    // so we should use the keywork instead the state searchWord
+    searchBar(keyword,filterInstock)
+  }
+  const showInStock = (onlyStock)=>{
+    setFilterInstock(onlyStock)
+    searchBar(searchWord,onlyStock)
   }
 
-  const showInStock = (checkboxStatus)=>{
-    setFilterInstock(checkboxStatus)
-    resetProducts()
-  }
-
-  const resetProducts = ()=>{
-    const productsCopy = [...jsonData]
-    let filteredProducts = productsCopy.filter(product =>
-      product.name.toLowerCase().includes(searchWord.toLowerCase()) 
-      ) 
-    console.log(filteredProducts)
-    if(!filterInstock){
-      filteredProducts = filteredProducts.filter(product=> product.inStock)
+  const searchBar = (keyword, onlyStock)=>{
+    let productsCopy = [...jsonData]
+    if(onlyStock){
+      productsCopy = productsCopy.filter(product=>product.inStock)
     }
-    console.log(filterInstock)
-    setProducts(filteredProducts)
+    productsCopy = productsCopy.filter(product=> product.name.includes(keyword))
+    setProducts(productsCopy)
   }
-
 
   return (
     <div>
       <h1>IronStore</h1>
       <SearchBar
-        containKeyword={resetKeyword}
+        containKeyword={containKeyword}
         showInStock={showInStock}
       ></SearchBar>
       <ProductTable filteredProducts={products}></ProductTable>

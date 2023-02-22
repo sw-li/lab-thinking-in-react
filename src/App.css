@@ -45,13 +45,22 @@
   flex-flow: column nowrap;
   align-items: center;
 }
-td, th{
-  width: 150px;
+
+table{
+  border: 1px solid grey;
+}
+th{
+  background-color: grey;
 }
 
-table, th, td {
-  border: 1 solid violet;
+td{
+  border-top: 1px dotted rgb(49, 134, 247) ;
 }
+
+td, th{
+  width: 300px;
+}
+
 
 .inStock{
   color: green;
@@ -59,4 +68,8 @@ table, th, td {
 
 .notInStock{
   color: red;
+}
+
+.searchInput{
+  width: 00px;
 }

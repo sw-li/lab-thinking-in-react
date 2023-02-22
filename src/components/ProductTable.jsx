@@ -7,7 +7,7 @@ function ProductTable(props) {
   ));
   return (
     <div className="productTable">
-      <h1>ProductTable</h1>
+      <br />
       <table>
         <thead>
           <tr>
